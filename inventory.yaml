@@ -23,8 +23,8 @@
             # Note: openshift_host can use the format https://URL:PORT
             # Note: openshift_token can be used for token authentication
             # ==================
-            openshift_host: 'https://api.cluster-ba0a.ba0a.example.opentlc.com:6443'
+            openshift_host: 'https://api.cluster-aaaa.aaaa.example.opentlc.com:6443'
             openshift_skip_tls_verify: true
             # openshift_user: ''
             # openshift_password: ''
-            openshift_token: 'sha256~Oq5WVZFenpI39rIw4iM_REC1wPKV2ftUJFpUJAqnGWs'
+            openshift_token: 'sha256~Ch@ng3Tok3n'
