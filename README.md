@@ -40,12 +40,12 @@ ansible-playbook -i inventory.yaml --tags=uninstall  main.yml
 ## Create Database Cluster
 **As sudo user**
 ```
-ansible-playbook -i inventory.yaml --tags=createdb --ask-become-pass main.yml
+ansible-playbook -i inventory.yaml --tags=createdb --ask-become-pass main.yml -vv
 ```
 
 **As root**
 ```
-ansible-playbook -i inventory.yaml --tags=createdb  main.yml
+ansible-playbook -i inventory.yaml --tags=createdb  main.yml -vv
 ```
 
 ## Delete Database Cluster
