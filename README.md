@@ -59,3 +59,12 @@ ansible-playbook -i inventory.yaml --tags=deletedb --ask-become-pass main.yml
 ```
 ansible-playbook -i inventory.yaml --tags=deletedb  main.yml
 ```
+
+
+CREATE SCHEMA coffeeshop AUTHORIZATION testuser;
+alter table if exists coffeeshop.LineItems
+
+
+https://access.crunchydata.com/documentation/crunchy-postgres-containers/4.5.1/examples/postgresql/custom-config/
+
+https://raw.githubusercontent.com/quarkuscoffeeshop/quarkuscoffeeshop-counter/master/init-postgresql.sql
