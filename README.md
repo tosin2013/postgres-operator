@@ -37,6 +37,12 @@ ansible-playbook -i inventory.yaml --tags=uninstall --ask-become-pass main.yml
 ansible-playbook -i inventory.yaml --tags=uninstall  main.yml
 ```
 
+**Remove ~/.pgo if exists in your home directory**
+```
+ls -h  ~/.pgo 
+quarkuscoffeeshop-demo
+```
+
 ## Create Database Cluster
 **As sudo user**
 ```
