@@ -1,4 +1,10 @@
 ---
+- name: Print the gateway for each host when defined
+  ansible.builtin.debug:
+    msg:  usrname {{ current_user }}
+
+
+
 - name: Set output directory fact on MAC
   set_fact:
     home_path: "/Users/{{ current_user }}"
@@ -8,7 +14,13 @@
 - name: Set output directory fact on Linux
   set_fact:
     home_path: "/home/{{ current_user }}"
-  when: ansible_distribution != 'MacOSX'
+  when: ( ansible_distribution != 'MacOSX') and (current_user != "")
+  tags: always
+
+- name: Set output directory fact on Linux
+  set_fact:
+    home_path: "/root/"
+  when: (current_user == "") and ( ansible_distribution != 'MacOSX')
   tags: always
 
 - name: Set output directory 
@@ -22,6 +34,8 @@
     state: directory
     mode: 0700
   tags: always
+
+
 
 - include_tasks: "{{ tasks }}"
   with_items:
