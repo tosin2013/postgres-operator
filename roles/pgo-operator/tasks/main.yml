@@ -19,7 +19,7 @@
 
 - name: Set output directory fact on Linux
   set_fact:
-    home_path: "/root/"
+    home_path: "/root"
   when: (current_user == "") and ( ansible_distribution != 'MacOSX')
   tags: always
 
