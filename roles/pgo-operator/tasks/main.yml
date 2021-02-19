@@ -1,7 +1,19 @@
 ---
-- name: Set output directory fact
+- name: Set output directory fact on MAC
   set_fact:
-    output_dir: "{{ ansible_env.HOME }}/.pgo/{{ pgo_operator_namespace }}/output"
+    home_path: "/Users/{{ current_user }}"
+  when: ansible_distribution == 'MacOSX'
+  tags: always
+
+- name: Set output directory fact on Linux
+  set_fact:
+    home_path: "/home/{{ current_user }}"
+  when: ansible_distribution != 'MacOSX'
+  tags: always
+
+- name: Set output directory 
+  set_fact:
+    output_dir: "{{ home_path }}/.pgo/{{ pgo_operator_namespace }}/output"
   tags: always
 
 - name: Ensure output directory exists
@@ -431,7 +443,7 @@
     - createdb
   block:
     - name: Configure Database cluster
-      script: files/configure-postgressdb.sh "{{ namespace }}" {{ kubectl_or_oc }} 
+      script: files/configure-postgressdb.sh "{{ namespace }}" {{ kubectl_or_oc }} "{{ home_path }}"
       args:
         executable: /bin/bash
 
@@ -440,7 +452,7 @@
     - deletedb
   block:
     - name: Delete Database 
-      script: files/delete-postgressdb.sh  "{{ namespace }}" {{ kubectl_or_oc }} 
+      script: files/delete-postgressdb.sh  "{{ namespace }}" {{ kubectl_or_oc }} "{{ home_path }}"
       ignore_errors: yes
       args:
         executable: /bin/bash

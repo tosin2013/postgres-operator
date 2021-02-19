@@ -3,6 +3,7 @@
 # More info for these options can be found in the docs
 # https://access.crunchydata.com/documentation/postgres-operator/latest/installation/configuration/
 # =====================
+current_user: "{{ lookup('env','USER') }}"
 archive_mode: "true"
 archive_timeout: "60"
 backrest_aws_s3_bucket: ""
@@ -76,7 +77,7 @@ replica_storage: "default"
 wal_storage: ""
 storage1_name: "default"
 storage1_access_mode: "ReadWriteOnce"
-storage1_size: "1G"
+storage1_size: "5G"
 storage1_type: "dynamic"
 storage2_name: "hostpathstorage"
 storage2_access_mode: "ReadWriteMany"
