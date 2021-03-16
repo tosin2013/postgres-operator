@@ -460,6 +460,13 @@
       script: files/configure-postgressdb.sh "{{ namespace }}" {{ kubectl_or_oc }} "{{ home_path }}"
       args:
         executable: /bin/bash
+    - name: Expose pgadmin service
+      shell: |
+        set -o pipefail  {{ kubectl_or_oc }} -n "{{ pgo_operator_namespace }}" expose deployment {{ db_name }}-pgadmin;
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
+
 
 - name: Delete database cluster
   tags:
