@@ -462,7 +462,7 @@
         executable: /bin/bash
     - name: Expose pgadmin service
       shell: |
-        set -o pipefail  {{ kubectl_or_oc }} -n "{{ pgo_operator_namespace }}" expose deployment {{ db_name }}-pgadmin;
+        set -o pipefail  {{ kubectl_or_oc }} -n "{{ pgo_operator_namespace }}" expose service {{ db_name }}-pgadmin;
       ignore_errors: yes
       args:
         executable: /bin/bash
