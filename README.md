@@ -17,22 +17,11 @@ for Kubernetes and OpenShift.
 * Edit values.yml 
 
 ## Install Postgres Database Operator
-**As sudo user**
-```
-ansible-playbook -i inventory.yaml --tags=install --ask-become-pass main.yml
-```
-
-**As root**
 ```
 ansible-playbook -i inventory.yaml --tags=install  main.yml
 ```
 
 ## Uninstall Postgres Database Operator
-**As sudo user**
-```
-ansible-playbook -i inventory.yaml --tags=uninstall --ask-become-pass main.yml
-```
-**As root**
 ```
 ansible-playbook -i inventory.yaml --tags=uninstall  main.yml
 ```
@@ -44,24 +33,11 @@ quarkuscoffeeshop-demo
 ```
 
 ## Create Database Cluster
-**As sudo user**
-```
-ansible-playbook -i inventory.yaml --tags=createdb --ask-become-pass main.yml -vv
-```
-
-**As root**
 ```
 ansible-playbook -i inventory.yaml --tags=createdb  main.yml -vv
 ```
 
 ## Delete Database Cluster
-**As sudo user**
-```
-ansible-playbook -i inventory.yaml --tags=deletedb --ask-become-pass main.yml
-```
-
-
-**As root**
 ```
 ansible-playbook -i inventory.yaml --tags=deletedb  main.yml
 ```
