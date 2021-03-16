@@ -477,3 +477,9 @@
       ignore_errors: yes
       args:
         executable: /bin/bash
+    - name: Expose pgadmin service
+      shell: |
+        set -o pipefail  {{ kubectl_or_oc }}  delete route {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}
+      ignore_errors: yes
+      args:
+        executable: /bin/bash
