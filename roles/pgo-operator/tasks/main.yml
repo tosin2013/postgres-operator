@@ -466,6 +466,9 @@
       ignore_errors: yes
       args:
         executable: /bin/bash
+    - name: Pause for 30 seconds before creating route
+      pause:
+        seconds: 30
 
 
 - name: Delete database cluster
