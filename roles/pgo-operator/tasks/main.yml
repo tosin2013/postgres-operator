@@ -461,13 +461,8 @@
       args:
         executable: /bin/bash
     - name: Expose pgadmin service
-      shell: |
-        {{ kubectl_or_oc }}  expose service {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}
+      command: "{{ kubectl_or_oc }}  expose service {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}"
       ignore_errors: yes
-      args:
-        executable: /bin/bash
-    
-
 
 - name: Delete database cluster
   tags:
@@ -479,8 +474,5 @@
       args:
         executable: /bin/bash
     - name: delete  pgadmin route
-      shell: |
-        set -o pipefail  {{ kubectl_or_oc }}  delete route {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}
+      command: "{{ kubectl_or_oc }}  delete route {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}"
       ignore_errors: yes
-      args:
-        executable: /bin/bash
