@@ -460,15 +460,16 @@
       script: files/configure-postgressdb.sh "{{ namespace }}" {{ kubectl_or_oc }} "{{ home_path }}"
       args:
         executable: /bin/bash
+    - name: Pause for 30 seconds before creating route
+      pause:
+        seconds: 30
     - name: Expose pgadmin service
       shell: |
         set -o pipefail  {{ kubectl_or_oc }}  expose service {{ db_name }}-pgadmin -n {{ pgo_operator_namespace }}
       ignore_errors: yes
       args:
         executable: /bin/bash
-    - name: Pause for 30 seconds before creating route
-      pause:
-        seconds: 30
+    
 
 
 - name: Delete database cluster
