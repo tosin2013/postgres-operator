@@ -1,6 +1,6 @@
 # Crunchy Data PostgreSQL Operator Playbook
 
-Latest Release: 4.5.0
+Latest Release: 4.7.0
 
 ## General
 
