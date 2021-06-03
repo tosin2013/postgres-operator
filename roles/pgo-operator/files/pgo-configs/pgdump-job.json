@@ -4,6 +4,9 @@
     "metadata": {
         "name": "{{.JobName}}",
         "labels": {
+                {{ if .CustomLabels }}
+                {{ .CustomLabels }}
+                {{ end }}
                 "vendor": "crunchydata",
                 "pgdump": "true",
                 "pg-cluster": "{{.ClusterName}}",
@@ -15,6 +18,9 @@
             "metadata": {
                 "name": "{{.JobName}}",
                 "labels": {
+                    {{ if .CustomLabels }}
+                    {{ .CustomLabels }}
+                    {{ end }}
                     "vendor":"crunchydata",
                     "pgdump":"true",
                     "pg-cluster":"{{.ClusterName}}"
@@ -22,6 +28,13 @@
             },
             "spec": {
                 "volumes": [
+                    {
+                        "name": "tmp",
+                        "emptyDir": {
+                          "medium": "Memory",
+                          "sizeLimit": "1Mi"
+                        }
+                    },
                     {
                         "name": "pgdata",
                         "persistentVolumeClaim": {
@@ -31,17 +44,34 @@
                 ],
                 "securityContext": {{.SecurityContext}},
                 "serviceAccountName": "pgo-default",
+                {{ if .Tolerations }}
+                "tolerations": {{ .Tolerations }},
+                {{ end }}
                 "containers": [{
                         "name": "pgdump",
-                        "image": "{{.CCPImagePrefix}}/crunchy-pgdump:{{.CCPImageTag}}",
+                        "image": "{{.CCPImagePrefix}}/crunchy-postgres-ha:{{.CCPImageTag}}",
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "privileged": false,
+                          "readOnlyRootFilesystem": true
+                        },
+                        "command": ["/opt/crunchy/bin/uid_postgres.sh"],
+                        "args": ["/opt/crunchy/bin/start.sh"],
                         "volumeMounts": [
                             {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            },
+                            {
                                 "mountPath": "/pgdata",
-                                "name": "pgdata",
-                                "readOnly": false
+                                "name": "pgdata"
                             }
                         ],
                         "env": [
+                            {
+                                "name": "MODE",
+                                "value": "pgdump"
+                            },
                             {
                                 "name": "PGDUMP_HOST",
                                 "value": "{{.PgDumpHost}}"

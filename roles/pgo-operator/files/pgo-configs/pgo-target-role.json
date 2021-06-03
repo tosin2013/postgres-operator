@@ -3,7 +3,10 @@
     "kind": "Role",
     "metadata": {
         "name": "pgo-target-role",
-        "namespace": "{{.TargetNamespace}}"
+        "namespace": "{{.TargetNamespace}}",
+        "labels": {
+          "vendor": "crunchydata"
+        }
     },
     "rules": [
         {
@@ -15,8 +18,6 @@
                 "endpoints",
                 "pods",
                 "pods/exec",
-                "pods/log",
-                "replicasets",
                 "secrets",
                 "services",
                 "persistentvolumeclaims"
@@ -34,10 +35,24 @@
         },
         {
             "apiGroups": [
+                ""
+            ],
+            "resources": [
+                "pods/log"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch"
+            ]
+        },
+        {
+            "apiGroups": [
                 "apps"
             ],
             "resources": [
-                "deployments"
+                "deployments",
+                "replicasets"
             ],
             "verbs":[
                 "get",

@@ -4,6 +4,9 @@
     "metadata": {
                 "name": "{{.JobName}}",
                 "labels": {
+                    {{ if .CustomLabels }}
+                    {{ .CustomLabels }}
+                    {{ end }}
                     "vendor": "crunchydata",
                     "pgo-backrest": "true",
                     "pgo-backrest-job": "true",
@@ -16,6 +19,9 @@
             "metadata": {
                 "name": "{{.JobName}}",
                 "labels": {
+                    {{ if .CustomLabels }}
+                    {{ .CustomLabels }}
+                    {{ end }}
                     "vendor": "crunchydata",
                     "pgo-backrest": "true",
                     "pgo-backrest-job": "true",
@@ -25,20 +31,42 @@
             },
             "spec": {
                 "volumes": [
+                    {
+                      "name": "tmp",
+                      "emptyDir": {
+                        "medium": "Memory",
+                        "sizeLimit": "16Mi"
+                      }
+                    }{{ if .PgbackrestRestoreVolumes }},{{ end }}
                     {{.PgbackrestRestoreVolumes}}
                 ],
                 "securityContext": {{.SecurityContext}},
                 "serviceAccountName": "pgo-backrest",
+                {{ if .Tolerations }}
+                "tolerations": {{ .Tolerations }},
+                {{ end }}
                 "containers": [{
                     "name": "backrest",
-                    "image": "{{.PGOImagePrefix}}/pgo-backrest:{{.PGOImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/crunchy-pgbackrest:{{.CCPImageTag}}",
+                    "securityContext": {
+                      "allowPrivilegeEscalation": false,
+                      "privileged": false,
+                      "readOnlyRootFilesystem": true
+                    },
                     "volumeMounts": [
+                        {
+                            "mountPath": "/tmp",
+                            "name": "tmp"
+                        }{{ if .PgbackrestRestoreVolumeMounts }},{{ end }}
                         {{.PgbackrestRestoreVolumeMounts}}
                     ],
                     "env": [{
                         "name": "COMMAND",
                         "value": "{{.Command}}"
                     }, {
+                        "name": "MODE",
+                        "value": "pgbackrest"
+                    },{
                         "name": "COMMAND_OPTS",
                         "value": "{{.CommandOpts}}"
                     }, {
@@ -54,14 +82,17 @@
                         "name": "PGBACKREST_DB_PATH",
                         "value": "{{.PgbackrestDBPath}}"
                     }, {
-                        "name": "PGBACKREST_REPO_PATH",
-                        "value": "{{.PgbackrestRepoPath}}"
+                        "name": "PGBACKREST_REPO1_PATH",
+                        "value": "{{.PgbackrestRepo1Path}}"
                     }, {
-                        "name": "PGBACKREST_REPO_TYPE",
-                        "value": "{{.PgbackrestRepoType}}"
+                        "name": "PGBACKREST_REPO1_TYPE",
+                        "value": "{{.PgbackrestRepo1Type}}"
                     },{
                         "name": "PGHA_PGBACKREST_LOCAL_S3_STORAGE",
                         "value": "{{.BackrestLocalAndS3Storage}}"
+                    },{
+                        "name": "PGHA_PGBACKREST_LOCAL_GCS_STORAGE",
+                        "value": "{{.BackrestLocalAndGCSStorage}}"
                     },{
                         "name": "PGHA_PGBACKREST_S3_VERIFY_TLS",
                         "value": "{{.PgbackrestS3VerifyTLS}}"

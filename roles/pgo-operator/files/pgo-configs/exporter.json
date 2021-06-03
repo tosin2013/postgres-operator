@@ -1,9 +1,15 @@
-,{
+{
     "name": "exporter",
     "image": "{{.PGOImagePrefix}}/crunchy-postgres-exporter:{{.PGOImageTag}}",
+    "securityContext": {
+      "allowPrivilegeEscalation": false,
+      "privileged": false,
+      "readOnlyRootFilesystem": true
+    },
     "ports": [{
         "containerPort": {{.ExporterPort}},
-        "protocol": "TCP"
+        "protocol": "TCP",
+        "name": "exporter"
     }],
     {{.ContainerResources }}
     "env": [
@@ -35,7 +41,7 @@
             "name": "EXPORTER_PG_USER",
             "valueFrom": {
               "secretKeyRef": {
-                  "name": "{{.CollectSecretName}}",
+                  "name": "{{.ExporterSecretName}}",
                   "key": "username"
               }
             }
@@ -44,10 +50,16 @@
             "name": "EXPORTER_PG_PASSWORD",
             "valueFrom": {
               "secretKeyRef": {
-                  "name": "{{.CollectSecretName}}",
+                  "name": "{{.ExporterSecretName}}",
                   "key": "password"
               }
             }
           }
+    ],
+    "volumeMounts": [
+      {
+        "mountPath": "/tmp",
+        "name": "tmp"
+      }
     ]
 }
