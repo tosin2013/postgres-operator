@@ -4,7 +4,7 @@
 # https://access.crunchydata.com/documentation/postgres-operator/latest/installation/configuration/
 # =====================
 current_user: "{{ lookup('env','USER') }}"
-enable_crunchyadm: true
+enable_crunchyadm: "true"
 archive_mode: "true"
 archive_timeout: "60"
 backrest_aws_s3_bucket: ""
