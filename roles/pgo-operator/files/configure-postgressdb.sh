@@ -11,5 +11,5 @@ export PGO_NAMESPACE=${1}
 # Use for Testing
 #pgo version --pgo-ca-cert ${PGO_CA_CERT} --pgo-client-cert ${PGO_CA_CERT} --pgo-client-key ${PGO_CLIENT_KEY} | tee /tmp/postgres-version.txt || exit $?
 export PGO_APISERVER_URL="https://$(${2} -n "${1}" get route postgres-operator -o jsonpath="{.spec.host}")"
-pgo create cluster coffeeshopdb --replica-count=2 --pgo-ca-cert ${PGO_CA_CERT} --pgo-client-cert ${PGO_CA_CERT} --pgo-client-key ${PGO_CLIENT_KEY} -n ${1} | tee /tmp/postgres-info.txt || exit $?
-pgo create pgadmin coffeeshopdb --pgo-ca-cert ${PGO_CA_CERT} --pgo-client-cert ${PGO_CA_CERT} --pgo-client-key ${PGO_CLIENT_KEY} -n ${1}
+/usr/local/bin/pgo create cluster coffeeshopdb --replica-count=2 --pgo-ca-cert ${PGO_CA_CERT} --pgo-client-cert ${PGO_CA_CERT} --pgo-client-key ${PGO_CLIENT_KEY} -n ${1} | tee /tmp/postgres-info.txt || exit $?
+/usr/local/bin/pgo create pgadmin coffeeshopdb --pgo-ca-cert ${PGO_CA_CERT} --pgo-client-cert ${PGO_CA_CERT} --pgo-client-key ${PGO_CLIENT_KEY} -n ${1}
