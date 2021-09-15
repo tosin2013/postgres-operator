@@ -9,12 +9,12 @@ for Kubernetes and OpenShift.
 
 ## Based off the Postgres GitHub repo
 
-[postgres-operator GitHub Repo](https://github.com/CrunchyData/postgres-operator/tree/v4.5.0)
+[postgres-operator GitHub Repo](https://github.com/CrunchyData/postgres-operator/tree/v4.7.0)
 
 ## Optional Run Quick install script
 > This script will automatically download the postgres-operator repo and install the operator on openshift. The script currently does not modify the default values.yml
 ```
-$ curl -OL 
+$ curl -OL https://raw.githubusercontent.com/tosin2013/postgres-operator/main/scripts/deploy-postgres-operator.sh
 $ chmod +x deploy-postgres-operator.sh
 $ ./deploy-postgres-operator.sh 
 ./deploy-postgres-operator.sh [OPTION]
