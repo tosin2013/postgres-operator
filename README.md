@@ -11,6 +11,22 @@ for Kubernetes and OpenShift.
 
 [postgres-operator GitHub Repo](https://github.com/CrunchyData/postgres-operator/tree/v4.5.0)
 
+## Optional Run Quick install script
+> This script will automatically download the postgres-operator repo and install the operator on openshift. The script currently does not modify the default values.yml
+```
+$ curl -OL 
+$ chmod +x deploy-postgres-operator.sh
+$ ./deploy-postgres-operator.sh 
+./deploy-postgres-operator.sh [OPTION]
+ Options:
+  -d      Add domain 
+  -t      OpenShift Token
+  -u      Uninstall deployment
+  To deploy postgres-operator playbooks
+  ./deploy-postgres-operator.sh  -d ocp4.example.com -o sha-123456789 
+  To Delete postgres-operator playbooks from OpenShift
+  ./deploy-postgres-operator.sh  -d ocp4.example.com -o sha-123456789 -u true
+```
 ## Edit values and inventory yaml's
 
 * Edit inventory.yaml 
