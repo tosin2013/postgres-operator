@@ -11,7 +11,8 @@ for Kubernetes and OpenShift.
 
 [postgres-operator GitHub Repo](https://github.com/CrunchyData/postgres-operator/tree/v4.7.0)
 
-## Optional Run Quick install script
+## Automated Deployment
+### Optional: Run Quick install script
 > This script will automatically download the postgres-operator repo and install the operator on openshift. The script currently does not modify the default values.yml
 ```
 $ curl -OL https://raw.githubusercontent.com/tosin2013/postgres-operator/main/scripts/deploy-postgres-operator.sh
@@ -27,17 +28,18 @@ $ ./deploy-postgres-operator.sh
   To Delete postgres-operator playbooks from OpenShift
   ./deploy-postgres-operator.sh  -d ocp4.example.com -o sha-123456789 -u true
 ```
-## Edit values and inventory yaml's
+## Manual Deployment
+### Edit values and inventory yaml's
 
 * Edit inventory.yaml 
 * Edit values.yml 
 
-## Install Postgres Database Operator
+### Install Postgres Database Operator
 ```
 ansible-playbook -i inventory.yaml --tags=install  main.yml
 ```
 
-## Uninstall Postgres Database Operator
+### Uninstall Postgres Database Operator
 ```
 ansible-playbook -i inventory.yaml --tags=uninstall  main.yml
 ```
@@ -48,12 +50,12 @@ ls -h  ~/.pgo
 quarkuscoffeeshop-demo
 ```
 
-## Create Database Cluster
+### Create Database Cluster
 ```
 ansible-playbook -i inventory.yaml --tags=createdb  main.yml -vv
 ```
 
-## Delete Database Cluster
+### Delete Database Cluster
 ```
 ansible-playbook -i inventory.yaml --tags=deletedb  main.yml
 ```
