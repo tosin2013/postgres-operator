@@ -15,9 +15,9 @@ function usage() {
   -t      OpenShift Token
   -u      Uninstall deployment
   To deploy postgres-operator playbooks
-  ${0}  -d ocp4.example.com -o sha-123456789 
+  ${0}  -d ocp4.example.com -t sha-123456789 
   To Delete postgres-operator playbooks from OpenShift
-  ${0}  -d ocp4.example.com -o sha-123456789 -u true
+  ${0}  -d ocp4.example.com -t sha-123456789 -u true
 "
 }
 
